@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#2563eb">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+
+  <title>StudyFlow</title>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-icon">✦</div>
+
+      <div>
+        <div class="brand-name">StudyFlow</div>
+        <div class="brand-sub">Homework Manager</div>
+      </div>
+    </div>
+
+    <div class="menu">
+
+      <button class="menu-btn active" onclick="showPage('home',this)">
+        <span>⌂</span>
+        หน้าหลัก
+      </button>
+
+      <button class="menu-btn" onclick="showPage('homework',this)">
+        <span>✓</span>
+        การบ้าน
+      </button>
+
+      <button class="menu-btn" onclick="showPage('calendar',this)">
+        <span>□</span>
+        ปฏิทิน
+      </button>
+
+      <button class="menu-btn" onclick="showPage('stats',this)">
+        <span>◔</span>
+        สถิติ
+      </button>
+
+      <button class="menu-btn" onclick="showPage('settings',this)">
+        <span>⚙</span>
+        ตั้งค่า
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <header>
+
+      <div>
+        <div id="greeting" class="greeting">
+          สวัสดี 👋 ภูมินทร์
+        </div>
+
+        <div id="datetime" class="datetime"></div>
+      </div>
+
+      <button class="add-btn" onclick="openModal()">
+        <span>＋</span>
+        <b>เพิ่มการบ้าน</b>
+      </button>
+
+    </header>
+
+
+    <!-- HOME -->
+    <section id="home" class="page active">
+
+      <div class="hero">
+
+        <div>
+          <div class="hero-small">ยินดีต้อนรับกลับมา 👋</div>
+
+          <h1>
+            จัดการการบ้าน<br>
+            ให้เป็นเรื่องง่าย
+          </h1>
+
+          <p>
+            ติดตามงาน กำหนดส่ง และความคืบหน้า
+            ได้ในที่เดียว
+          </p>
+        </div>
+
+        <div class="hero-symbol">
+          ✦
+        </div>
+
+      </div>
+
+
+      <div class="stats">
+
+        <div class="stat">
+          <div class="stat-symbol blue">□</div>
+          <div>
+            <span>การบ้านทั้งหมด</span>
+            <strong id="total">0</strong>
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-symbol orange">◷</div>
+          <div>
+            <span>ยังไม่เสร็จ</span>
+            <strong id="unfinished">0</strong>
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-symbol green">✓</div>
+          <div>
+            <span>เสร็จแล้ว</span>
+            <strong id="completed">0</strong>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="section-head">
+
+        <div>
+          <h2>การบ้านล่าสุด</h2>
+          <p>งานที่ต้องจัดการ</p>
+        </div>
+
+        <button onclick="showPage('homework')">
+          ดูทั้งหมด →
+        </button>
+
+      </div>
+
+      <div id="homeworkList" class="homework-list">
+
+        <div class="loading">
+          กำลังโหลดข้อมูล...
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- HOMEWORK -->
+    <section id="homework" class="page">
+
+      <div class="page-title">
+        <h1>การบ้าน</h1>
+        <p>จัดการการบ้านทั้งหมดของคุณ</p>
+      </div>
+
+      <div id="allHomework" class="homework-list"></div>
+
+    </section>
+
+
+    <!-- CALENDAR -->
+    <section id="calendar" class="page">
+
+      <div class="page-title">
+        <h1>ปฏิทิน</h1>
+        <p>ดูการบ้านตามกำหนดส่ง</p>
+      </div>
+
+      <div class="empty">
+        <div>□</div>
+        <h2>ปฏิทิน</h2>
+        <p>ฟีเจอร์นี้กำลังพัฒนา</p>
+      </div>
+
+    </section>
+
+
+    <!-- STATS -->
+    <section id="stats" class="page">
+
+      <div class="page-title">
+        <h1>สถิติ</h1>
+        <p>ดูความคืบหน้าการเรียน</p>
+      </div>
+
+      <div class="progress-card">
+
+        <span>อัตราการทำการบ้านสำเร็จ</span>
+
+        <strong id="percentage">0%</strong>
+
+        <div class="progress">
+          <div id="progressBar"></div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+    <section id="settings" class="page">
+
+      <div class="page-title">
+        <h1>ตั้งค่า</h1>
+        <p>ปรับแต่ง StudyFlow</p>
+      </div>
+
+      <div class="setting-card">
+
+        <label>ชื่อของคุณ</label>
+
+        <input
+          id="username"
+          value="ภูมินทร์"
+          onchange="saveName()"
+        >
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- MOBILE NAV -->
+  <nav class="mobile-nav">
+
+    <button class="mobile-btn active"
+            onclick="showPage('home',this)">
+      <span>⌂</span>
+      <small>หน้าหลัก</small>
+    </button>
+
+    <button class="mobile-btn"
+            onclick="showPage('homework',this)">
+      <span>✓</span>
+      <small>การบ้าน</small>
+    </button>
+
+    <button class="mobile-plus"
+            onclick="openModal()">
+      ＋
+    </button>
+
+    <button class="mobile-btn"
+            onclick="showPage('calendar',this)">
+      <span>□</span>
+      <small>ปฏิทิน</small>
+    </button>
+
+    <button class="mobile-btn"
+            onclick="showPage('stats',this)">
+      <span>◔</span>
+      <small>สถิติ</small>
+    </button>
+
+  </nav>
+
+</div>
+
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal()">×</button>
+
+    <h2>เพิ่มการบ้าน</h2>
+    <p>เพิ่มงานใหม่ลงใน StudyFlow</p>
+
+    <label>วิชา</label>
+    <input id="subject" placeholder="เช่น คณิตศาสตร์">
+
+    <label>การบ้าน</label>
+    <input id="homework" placeholder="เช่น แบบฝึกหัดหน้า 25">
+
+    <label>วันที่ส่ง</label>
+    <input id="dueDate" type="date">
+
+    <label>เวลา</label>
+    <input id="dueTime" type="time">
+
+    <label>ความสำคัญ</label>
+
+    <select id="priority">
+      <option>ปกติ</option>
+      <option>สำคัญ</option>
+      <option>ด่วนมาก</option>
+    </select>
+
+    <button class="save-btn" onclick="saveHomework()">
+      บันทึกการบ้าน
+    </button>
+
+  </div>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
